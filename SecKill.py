@@ -22,7 +22,7 @@ sess = r.Session()
 
 # In[3]:
 
-data = {"username":"****","password":"****"}
+data = {"username":"Jinbao","password":"DJB.11283814"}
 login = sess.post("http://www.dcjingsai.com/user/common/login.json",data=data)
 
 
@@ -33,17 +33,24 @@ login = sess.post("http://www.dcjingsai.com/user/common/login.json",data=data)
 login.text
 
 
-# 5、先将比赛预测的结果由json字符串转换成字符串，post请求提交预测的结果
-
-# In[5]:
+# In[11]:
 
 predict = json.dumps("home,away,result1,result2\n比利时,英格兰,胜,负")
-response = sess.post("http://www.dcjingsai.com/user/file/uploadSubmissionFileByString.json",data=predict)
+predict = "home,away,result1,result2\n比利时,英格兰,胜,负"
+print(predict,type(predict))
+
+
+# 5、先将比赛预测的结果由json字符串转换成字符串，post请求提交预测的结果
+
+# In[15]:
+
+predict = "home,away,result1,result2\n比利时,英格兰,胜,负"
+response = sess.post("http://www.dcjingsai.com/user/file/uploadSubmissionFileByString.json",data=predict.encode('utf-8'))
 
 
 # 5、提交结果输出
 
-# In[6]:
+# In[16]:
 
 response.text
 
@@ -62,6 +69,7 @@ print(data)
 
 path = data['data']['fullPath']
 print(path)
+path = 'http://pu-datacastle.oss-cn-qingdao.aliyuncs.com/content/data/String_8512d97a-d1bf-4cd2-b64a-0180593f3c2b.csv'
 
 
 # 8、获取文件名
@@ -101,15 +109,15 @@ ans.text
 
 # 12、获取当前时间，定时提交
 
-# In[13]:
+# In[14]:
 
 while True:
     now_time = str(datetime.datetime.now())
-    if '2018-07-12 22:10:00'==now_time[:19]:
-        ans = sess.post("http://www.dcjingsai.com/user/cmpt/commitResult.json",data=d)
-        print(now_time)
-        print(ans.text)
-    if '2018-07-12 22:10:05'==now_time[:19]:
+    #if '2018-07-14 13:59:59'==now_time[:19]:
+    ans = sess.post("http://www.dcjingsai.com/user/cmpt/commitResult.json",data=d)
+    print(now_time)
+    print(ans.text)
+    if '2018-07-14 14:01:05'==now_time[:19]:
         break
 
 
