@@ -22,7 +22,7 @@ sess = r.Session()
 
 # In[3]:
 
-data = {"username":"Jinbao","password":"DJB.11283814"}
+data = {"username":"****","password":"****"}
 login = sess.post("http://www.dcjingsai.com/user/common/login.json",data=data)
 
 
